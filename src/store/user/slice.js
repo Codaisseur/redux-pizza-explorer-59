@@ -1,16 +1,30 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  name: "Helva",
-  id: 42,
+  id: null,
+  name: null,
+  favorites: [67283, 357311],
 };
 
 export const userSlice = createSlice({
   initialState,
   name: "userSlice",
-  reducers: {},
+  reducers: {
+    toggleFav: (state, action) => {
+      const pizzaId = action.payload;
+
+      // check if it's already there
+      if (state.favorites.includes(pizzaId)) {
+        // if it is => remove it
+        state.favorites = state.favorites.filter((pId) => pId !== pizzaId);
+      } else {
+        // if it's not => add it
+        state.favorites = [...state.favorites, pizzaId];
+      }
+    },
+  },
 });
 
-export const {} = userSlice.actions;
+export const { toggleFav } = userSlice.actions;
 
 export default userSlice.reducer;
